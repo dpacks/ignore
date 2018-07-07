@@ -13,7 +13,7 @@ function ignore (dir, opts) {
   }, opts)
   dir = path.resolve(dir)
 
-  var allow = ['!**/.well-known/dpack', '!.well-known/dpack']
+  var allow = ['!**/.well-known/dweb', '!.well-known/dweb']
   var ignoreMatches = opts.ignore // we end up with array of ignores here
     ? Array.isArray(opts.ignore)
       ? opts.ignore

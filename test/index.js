@@ -70,7 +70,7 @@ test('dpackignore as str', function (t) {
 
 test('well-known not ignored', function (t) {
   var ignore = dPackIgnore(__dirname)
-  t.notOk(ignore(path.join(__dirname, '.well-known/dpack')), 'well known dpack not ignored')
+  t.notOk(ignore(path.join(__dirname, '.well-known/dweb')), 'well known dpack not ignored')
   t.end()
 })
 
