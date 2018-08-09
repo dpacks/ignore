@@ -7,9 +7,9 @@ var xtend = require('xtend')
 module.exports = ignore
 
 function ignore (dir, opts) {
-  assert.equal(typeof dir, 'string', 'dpack-ignore: directory required')
+  assert.equal(typeof dir, 'string', 'dweb-ignore: directory required')
   opts = xtend({
-    dpackignorePath: path.join(dir, '.dpackignore')
+    dwebignorePath: path.join(dir, '.dwebignore')
   }, opts)
   dir = path.resolve(dir)
 
@@ -20,13 +20,13 @@ function ignore (dir, opts) {
       : [opts.ignore]
     : []
 
-  var defaultIgnore = [/^(?:\/.*)?\.dpack(?:\/.*)?$/, '.DS_Store', '**/.DS_Store'] // ignore .dpack (and DS_Store)
+  var defaultIgnore = [/^(?:\/.*)?\.dweb(?:\/.*)?$/, '.DS_Store', '**/.DS_Store'] // ignore .dweb (and DS_Store)
   var ignoreHidden = !(opts.ignoreHidden === false) ? [/(^\.|\/\.).*/] : null // ignore hidden files anywhere
-  var dPackIgnore = !(opts.useDPackIgnore === false) ? readDPackIgnore() : null
+  var dWebIgnore = !(opts.useDWebIgnore === false) ? readDWebIgnore() : null
 
   // Add ignore options
-  ignoreMatches = ignoreMatches.concat(defaultIgnore) // always ignore .dpack folder
-  if (dPackIgnore) ignoreMatches = ignoreMatches.concat(dPackIgnore) // add .dpackignore
+  ignoreMatches = ignoreMatches.concat(defaultIgnore) // always ignore .dweb folder
+  if (dWebIgnore) ignoreMatches = ignoreMatches.concat(dWebIgnore) // add .dwebignore
   if (ignoreHidden) ignoreMatches = ignoreMatches.concat(ignoreHidden) // ignore all hidden things
   ignoreMatches = ignoreMatches.concat(allow)
 
@@ -57,10 +57,10 @@ function ignore (dir, opts) {
     return fs.existsSync(path) && fs.statSync(path).isDirectory()
   }
 
-  function readDPackIgnore () {
+  function readDWebIgnore () {
     try {
-      var ignores = opts.dpackignore || fs.readFileSync(opts.dpackignorePath, 'utf8')
-      if (ignores && typeof opts.dpackignore !== 'string') ignores = ignores.toString()
+      var ignores = opts.dwebignore || fs.readFileSync(opts.dwebignorePath, 'utf8')
+      if (ignores && typeof opts.dwebignore !== 'string') ignores = ignores.toString()
       return ignores
         .trim()
         .split(/[\r\n]+/g)
